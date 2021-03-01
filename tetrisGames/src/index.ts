@@ -4,9 +4,10 @@
 
 // 基于以上两个原则，系统中使用如下模式：
 // 数据-界面分离模式
-
+import $ from 'jquery'
 import { Square } from './core/Square'
 import { IViewer } from './core/types'
+import { SquarePageViewer } from './core/viewer/SquarePageViewer'
 
 // 继承显示接口
 class SquareConsoleIViewer implements IViewer {
@@ -23,10 +24,31 @@ class SquareConsoleIViewer implements IViewer {
 
 const square = new Square({ x: 3, y: 4}, 'red')
 
-square.viewer = new SquareConsoleIViewer(square)
+square.viewer = new SquarePageViewer(square, $('#root'))
 
-square.viewer.show()
 square.point = {
   x: 4,
   y: 4
 }
+
+$('#down').click(() => {
+  square.point = {
+    x: square.point.x + 1,
+    y: square.point.y
+  }
+})
+
+$('#up').click(() => {
+  square.viewer?.remove()
+})
+
+$('#add').click(() => {
+  square.viewer = new SquarePageViewer(square, $('#root'))
+})
+
+// setInterval(() => {
+//   square.point = {
+//     x: square.point.x + 1,
+//     y: square.point.y + 1
+//   }
+// }, 1000)

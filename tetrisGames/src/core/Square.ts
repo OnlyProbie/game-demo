@@ -23,6 +23,10 @@ export class Square {
 
   public set viewer (v) {
     this._viewer = v
+    // 显示者有值直接调用
+    if (v) {
+      v.show()
+    }
   }
 
   public get point () {
