@@ -5,15 +5,14 @@
 // 基于以上两个原则，系统中使用如下模式：
 // 数据-界面分离模式
 import $ from 'jquery'
-import { SquareGroup } from './core/SquareGroup'
+// import { SquareGroup } from './core/SquareGroup'
+import { createTetris } from './core/TetrisType'
 import { SquarePageViewer } from './core/viewer/SquarePageViewer'
 
 
-const group = new SquareGroup([
-  {x: 0, y: -1}, {x: -1, y: 0}, {x: 0, y: 0}, {x: 0, y: 1}
-], {x: 4, y: 5}, 'red')
+const tetris = createTetris({x: 3, y: 2})
 
-group.squares.forEach( sq => {
+tetris.squares.forEach(sq => {
   sq.viewer = new SquarePageViewer(sq, $('#root'))
 })
 
@@ -41,12 +40,12 @@ group.squares.forEach( sq => {
 // }
 
 $('#down').click(() => {
-  group.centerPoint = {
-    x: group.centerPoint.x,
-    y: group.centerPoint.y + 1
+  tetris.centerPoint = {
+    x: tetris.centerPoint.x,
+    y: tetris.centerPoint.y + 1
   }
-  console.log(group.centerPoint)
-  console.log(group.squares)
+  console.log(tetris.centerPoint)
+  console.log(tetris.squares)
 })
 
 // $('#up').click(() => {
