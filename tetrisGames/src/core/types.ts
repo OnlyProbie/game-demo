@@ -18,5 +18,6 @@ export interface IViewer {
 
 /**
  * 形状
+ * 通过逻辑坐标数组表示
  */
 export type Shape = Point[]

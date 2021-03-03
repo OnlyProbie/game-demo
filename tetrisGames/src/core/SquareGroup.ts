@@ -6,7 +6,7 @@ import { Point, Shape } from "./types";
  * 小方块组合类
  */
 export class SquareGroup {
-  private _squares: ReadonlyArray<Square>
+  private _squares: Square[]
 
   constructor (
     private _shape: Shape,
@@ -42,4 +42,20 @@ export class SquareGroup {
       this._squares[i].point = {x: this._centerPoint.x + p.x, y: this._centerPoint.y + p.y}
     })
   }
+
+  /**
+   * 形状围绕中心点旋转变换
+   */
+  public rotateTransform (deg: number) {
+    this._shape.forEach((sq, i) => {
+      this._squares[i].point = {
+        x: Math.floor(sq.x * Math.cos(deg) - sq.y * Math.sin(deg)),
+        y: Math.floor(sq.x * Math.sin(deg) + sq.y * Math.cos(deg))
+      }
+    })
+  }
 }
+
+
+
+

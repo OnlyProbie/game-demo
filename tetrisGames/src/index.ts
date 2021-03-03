@@ -48,6 +48,36 @@ $('#down').click(() => {
   console.log(tetris.squares)
 })
 
+$(document).keydown((event) => {
+  // 上
+  if (event.keyCode === 38) {
+    tetris.rotateTransform(90)
+    console.log(tetris.centerPoint)
+    console.log(tetris.squares)
+  }
+  // 下
+  if (event.keyCode === 40) {
+    tetris.centerPoint = {
+      x: tetris.centerPoint.x,
+      y: tetris.centerPoint.y + 1
+    }
+  }
+  // 左
+  if (event.keyCode === 37) {
+    tetris.centerPoint = {
+      x: tetris.centerPoint.x - 1,
+      y: tetris.centerPoint.y
+    }
+  }
+  // 右
+  if (event.keyCode === 39) {
+    tetris.centerPoint = {
+      x: tetris.centerPoint.x + 1,
+      y: tetris.centerPoint.y
+    }
+  }
+})
+
 // $('#up').click(() => {
 //   square.viewer?.remove()
 // })
