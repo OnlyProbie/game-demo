@@ -7,8 +7,10 @@
 import $ from 'jquery'
 // import { SquareGroup } from './core/SquareGroup'
 import { createTetris } from './core/TetrisType'
+import { test } from './core/types'
 import { SquarePageViewer } from './core/viewer/SquarePageViewer'
 
+const t:test = '123123'
 
 const tetris = createTetris({x: 3, y: 2})
 

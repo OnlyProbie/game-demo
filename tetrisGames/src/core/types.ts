@@ -21,3 +21,5 @@ export interface IViewer {
  * 通过逻辑坐标数组表示
  */
 export type Shape = Point[]
+
+export type test = string
