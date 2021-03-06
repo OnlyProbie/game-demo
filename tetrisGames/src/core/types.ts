@@ -22,4 +22,11 @@ export interface IViewer {
  */
 export type Shape = Point[]
 
-export type test = string
+/**
+ * 移动方向
+ */
+export enum MoveDirection {
+  left,
+  right,
+  down
+}
