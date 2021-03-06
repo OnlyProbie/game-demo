@@ -24,7 +24,7 @@ export const shapes = [
 
 // 方块颜色
 export const colors = [
-  'red', '#f40', 'blue', 'yellow'
+  'red', '#f40', 'blue', 'yellow', 'white'
 ]
 
 /**

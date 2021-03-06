@@ -21,3 +21,12 @@ export interface IViewer {
  * 通过逻辑坐标数组表示
  */
 export type Shape = Point[]
+
+/**
+ * 移动方向
+ */
+export enum MoveDirection {
+  left,
+  right,
+  down
+}

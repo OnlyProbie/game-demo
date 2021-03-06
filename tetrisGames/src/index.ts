@@ -5,10 +5,11 @@
 // 基于以上两个原则，系统中使用如下模式：
 // 数据-界面分离模式
 import $ from 'jquery'
+import { TetrisRules } from './core/TetrisRules'
 // import { SquareGroup } from './core/SquareGroup'
 import { createTetris } from './core/TetrisType'
+import { MoveDirection } from './core/types'
 import { SquarePageViewer } from './core/viewer/SquarePageViewer'
-
 
 const tetris = createTetris({x: 3, y: 2})
 
@@ -40,10 +41,17 @@ tetris.squares.forEach(sq => {
 // }
 
 $('#down').click(() => {
-  tetris.centerPoint = {
+  const targetPoint = {
     x: tetris.centerPoint.x,
     y: tetris.centerPoint.y + 1
   }
+  if (TetrisRules.canMove(tetris.shape, targetPoint)) {
+    tetris.centerPoint = {
+      x: tetris.centerPoint.x,
+      y: tetris.centerPoint.y + 1
+    }
+  }
+
   console.log(tetris.centerPoint)
   console.log(tetris.squares)
 })
@@ -57,38 +65,15 @@ $(document).keydown((event) => {
   }
   // 下
   if (event.keyCode === 40) {
-    tetris.centerPoint = {
-      x: tetris.centerPoint.x,
-      y: tetris.centerPoint.y + 1
-    }
+    TetrisRules.moveDirectly(tetris, MoveDirection.down)
   }
   // 左
   if (event.keyCode === 37) {
-    tetris.centerPoint = {
-      x: tetris.centerPoint.x - 1,
-      y: tetris.centerPoint.y
-    }
+    TetrisRules.move(tetris, MoveDirection.left)
   }
   // 右
   if (event.keyCode === 39) {
-    tetris.centerPoint = {
-      x: tetris.centerPoint.x + 1,
-      y: tetris.centerPoint.y
-    }
+    TetrisRules.move(tetris, MoveDirection.right)
   }
 })
 
-// $('#up').click(() => {
-//   square.viewer?.remove()
-// })
-
-// $('#add').click(() => {
-//   square.viewer = new SquarePageViewer(square, $('#root'))
-// })
-
-// setInterval(() => {
-//   square.point = {
-//     x: square.point.x + 1,
-//     y: square.point.y + 1
-//   }
-// }, 1000)
