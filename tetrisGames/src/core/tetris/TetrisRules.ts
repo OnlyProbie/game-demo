@@ -1,6 +1,6 @@
-import GameConfig from "./GameConfig";
-import { SquareGroup } from "./SquareGroup";
-import { MoveDirection, Point, Shape } from "./types";
+import GameConfig from "../config/GameConfig";
+import { SquareGroup } from "../square/SquareGroup";
+import { MoveDirection, Point, Shape } from "../types/types";
 
 function isPoint (target: any): target is Point {
   if(typeof target.x === 'undefined') {

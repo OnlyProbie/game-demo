@@ -1,6 +1,6 @@
 import { Square } from "./Square";
-import { Point, Shape } from "./types";
-import GameConfig from './GameConfig';
+import { Point, Shape } from "../types/types";
+import GameConfig from '../config/GameConfig';
 
 
 /**

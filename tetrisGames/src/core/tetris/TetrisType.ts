@@ -1,6 +1,6 @@
-import { SquareGroup } from "./SquareGroup";
-import { Point, Shape } from "./types";
-import { getRandom } from "./util";
+import { SquareGroup } from "../square/SquareGroup";
+import { Point, Shape } from "../types/types";
+import { getRandom } from "../util/util";
 
 // T 方块
 export class T_Shape extends SquareGroup {

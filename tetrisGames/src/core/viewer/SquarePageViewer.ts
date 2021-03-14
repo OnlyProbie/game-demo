@@ -1,11 +1,11 @@
-import { Square } from "../Square";
+import { Square } from "../square/Square";
 import $ from 'jquery'
-import { IViewer } from "../types";
+import { IViewer } from "../types/types";
 import PageConfig from "./PageConfig";
 
 $("")
-/** 
- * 
+/**
+ *
  * 显示一个小方块到页面上
  */
 export class SquarePageViewer implements IViewer {
@@ -16,7 +16,7 @@ export class SquarePageViewer implements IViewer {
         private square: Square,
         private container: JQuery<HTMLElement>
     ) {
-        
+
     }
     show (): void {
         if (this.isRomve) return;

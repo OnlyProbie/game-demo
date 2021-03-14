@@ -2,7 +2,7 @@
 // 1 对类的所有属性进行私有化
 // 2 通过向外暴露的公共方法提供对属性的访问
 
-import { Point, IViewer } from './types'
+import { Point, IViewer } from '../types/types'
 
 /**
  * 小方块
