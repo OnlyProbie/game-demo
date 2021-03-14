@@ -39,33 +39,17 @@ tetris.squares.forEach(sq => {
 //   x: 4,
 //   y: 4
 // }
-
-$('#down').click(() => {
-  const targetPoint = {
-    x: tetris.centerPoint.x,
-    y: tetris.centerPoint.y + 1
-  }
-  if (TetrisRules.canMove(tetris.shape, targetPoint)) {
-    tetris.centerPoint = {
-      x: tetris.centerPoint.x,
-      y: tetris.centerPoint.y + 1
-    }
-  }
-
-  console.log(tetris.centerPoint)
-  console.log(tetris.squares)
-})
-
 $(document).keydown((event) => {
   // 上
   if (event.keyCode === 38) {
-    tetris.rotateTransform(90)
-    console.log(tetris.centerPoint)
-    console.log(tetris.squares)
+    // const newTet = tetris.rotate()
+    TetrisRules.isRotate(tetris)
+    // console.log(tetris.shape)
+    // console.log(newTet)
   }
   // 下
   if (event.keyCode === 40) {
-    TetrisRules.moveDirectly(tetris, MoveDirection.down)
+    TetrisRules.move(tetris, MoveDirection.down)
   }
   // 左
   if (event.keyCode === 37) {

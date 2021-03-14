@@ -77,6 +77,18 @@ export class TetrisRules {
   static moveDirectly (tetris: SquareGroup, direction: MoveDirection) {
     while (this.move(tetris, direction)) {}
   }
+  /**
+   * 是否可以旋转
+   * @param tetris
+   */
+  static isRotate (tetris: SquareGroup): boolean {
+    const newShape = tetris.rotateShape() // 得到旋转之后新的坐标
+    if (this.canMove(newShape, tetris.centerPoint)) {
+      tetris.rotate()
+      return true
+    }
+    return false
+  }
 
 }
 
