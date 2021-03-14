@@ -1,4 +1,5 @@
 import GameConfig from "../config/GameConfig";
+import { Square } from "../square/Square";
 import { SquareGroup } from "../square/SquareGroup";
 import { MoveDirection, Point, Shape } from "../types/types";
 
@@ -16,7 +17,7 @@ export class TetrisRules {
   /**
    * 判断某个形状的方块，是否能够移动到目标位置
    */
-  static canMove (shape: Shape, targetPoint: Point): boolean {
+  static canMove (shape: Shape, targetPoint: Point, existTetris: Square[]): boolean {
     // 假设，中心点已经移动到了目标位置，算出每个小方块的坐标
     const targetSquarePoints: Point[] = shape.map(it => {
       return {
@@ -25,24 +26,26 @@ export class TetrisRules {
       }
     })
     // 边界判断
-    const result = targetSquarePoints.some(p => {
+    let result = targetSquarePoints.some(p => {
       // 是否超出了边界
       return p.x < 0 || p.x > GameConfig.panelSize.width - 1 || p.y < 0 || p.y > GameConfig.panelSize.height - 1
     })
-    if (result) {
-      return false
-    }
+    if (result) return false
+
+    // 判断是否与已有方块重叠
+    result = targetSquarePoints.some(point => existTetris.some( sq => sq.point.x === point.x && sq.point.y === point.y))
+    if (result) return false
     return true
   }
 
   /**
    * 移动
    */
-  static move (tetris: SquareGroup, targetPoint: Point): boolean
-  static move (tetris: SquareGroup, Direction: MoveDirection): boolean
-  static move (tetris: SquareGroup, targetPointOrDirection: Point | MoveDirection) {
+  static move (tetris: SquareGroup, targetPoint: Point, existTetris: Square[]): boolean
+  static move (tetris: SquareGroup, Direction: MoveDirection, existTetris: Square[]): boolean
+  static move (tetris: SquareGroup, targetPointOrDirection: Point | MoveDirection, existTetris: Square[]) {
     if (isPoint(targetPointOrDirection)) {
-      if (this.canMove(tetris.shape, targetPointOrDirection)) {
+      if (this.canMove(tetris.shape, targetPointOrDirection, existTetris)) {
         tetris.centerPoint = targetPointOrDirection
         return true
       }
@@ -66,7 +69,7 @@ export class TetrisRules {
           y: tetris.centerPoint.y
         }
       }
-      return this.move(tetris, targetPoint)
+      return this.move(tetris, targetPoint, existTetris)
     }
   }
   /**
@@ -74,16 +77,16 @@ export class TetrisRules {
    * @param tetris
    * @param direction
    */
-  static moveDirectly (tetris: SquareGroup, direction: MoveDirection) {
-    while (this.move(tetris, direction)) {}
+  static moveDirectly (tetris: SquareGroup, direction: MoveDirection, existTetris: Square[]) {
+    while (this.move(tetris, direction, existTetris)) {}
   }
   /**
    * 是否可以旋转
    * @param tetris
    */
-  static isRotate (tetris: SquareGroup): boolean {
+  static isRotate (tetris: SquareGroup, existTetris: Square[]): boolean {
     const newShape = tetris.rotateShape() // 得到旋转之后新的坐标
-    if (this.canMove(newShape, tetris.centerPoint)) {
+    if (this.canMove(newShape, tetris.centerPoint, existTetris)) {
       tetris.rotate()
       return true
     }

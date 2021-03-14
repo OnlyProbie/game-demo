@@ -1,4 +1,5 @@
 import GameConfig from "../config/GameConfig";
+import { Square } from "../square/Square";
 import { SquareGroup } from "../square/SquareGroup";
 import { TetrisRules } from "../tetris/TetrisRules";
 import { createTetris } from "../tetris/TetrisType";
@@ -15,6 +16,8 @@ export class Game {
   private _timer?: number
   // 方块下落速度
   private _duration: number = 1000
+  // 当前已经存在的方块
+  private _existTetris: Square[] = []
 
   constructor(private _viewer: GameViewer) {
     this.resetCenterPoint(GameConfig.nextSize.width, this._nextTetris)
@@ -49,24 +52,30 @@ export class Game {
   /**
    * 操作
    */
+  // 左移
   control_left () {
     if (this._curTetris && this._gameStatus === GameStatus.playing) {
-      TetrisRules.move(this._curTetris, MoveDirection.left)
+      TetrisRules.move(this._curTetris, MoveDirection.left, this._existTetris)
     }
   }
+  // 右移
   control_right () {
     if (this._curTetris && this._gameStatus === GameStatus.playing) {
-      TetrisRules.move(this._curTetris, MoveDirection.right)
+      TetrisRules.move(this._curTetris, MoveDirection.right, this._existTetris)
     }
   }
+  // 下
   control_down () {
     if (this._curTetris && this._gameStatus === GameStatus.playing) {
-      TetrisRules.moveDirectly(this._curTetris, MoveDirection.down)
+      TetrisRules.moveDirectly(this._curTetris, MoveDirection.down, this._existTetris)
+      // 触底
+      this.tetrisSole()
     }
   }
+  // 旋转
   control_rotate () {
     if (this._curTetris && this._gameStatus === GameStatus.playing) {
-      TetrisRules.isRotate(this._curTetris)
+      TetrisRules.isRotate(this._curTetris, this._existTetris)
     }
   }
   /**
@@ -77,11 +86,22 @@ export class Game {
     this._timer = setInterval(() => {
       if (this._curTetris) {
         // 向下移动
-        if (!TetrisRules.move(this._curTetris, MoveDirection.down)) {
+        if (!TetrisRules.move(this._curTetris, MoveDirection.down, this._existTetris)) {
           // 触底
+          this.tetrisSole()
         }
       }
     }, this._duration)
+  }
+
+  /**
+   * 触底之后的操作
+   */
+  private tetrisSole () {
+    // 将当前的方块，加入到已经存在的方块数组中
+    this._existTetris.push(...this._curTetris!.squares)
+    // 切换方块
+    this.switchTetris()
   }
 
   /**

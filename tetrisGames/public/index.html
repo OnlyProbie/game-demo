@@ -19,9 +19,10 @@
     }
 
     #next {
+      margin-top: 30px;
       position: relative;
       width: 200px;
-      height: 200px;
+      height: 120px;
     }
     .control_btn_wrap {
       display: flex;
@@ -46,12 +47,16 @@
     .control_btn:hover {
       background-color: skyblue;
     }
+    .next_tetris {
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
   <div id="root">
     <div id="panel"></div>
     <div id="tip">
+      <div class="next_tetris">下一个方块</div>
       <div id="next"></div>
       <div class="control_btn_wrap">
         <div id="btn_start" class="control_btn">开始</div>
