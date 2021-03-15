@@ -43,27 +43,24 @@ g.start()
 // square.viewer = new SquarePageViewer(square, $('#root'))
 
 // 操作
-// $(document).keydown((event) => {
-//   // 上
-//   if (event.keyCode === 38) {
-//     // const newTet = tetris.rotate()
-//     TetrisRules.isRotate(tetris)
-//     // console.log(tetris.shape)
-//     // console.log(newTet)
-//   }
-//   // 下
-//   if (event.keyCode === 40) {
-//     TetrisRules.move(tetris, MoveDirection.down)
-//   }
-//   // 左
-//   if (event.keyCode === 37) {
-//     TetrisRules.move(tetris, MoveDirection.left)
-//   }
-//   // 右
-//   if (event.keyCode === 39) {
-//     TetrisRules.move(tetris, MoveDirection.right)
-//   }
-// })
+$(document).keydown((event) => {
+  // 上 旋转
+  if (event.keyCode === 38) {
+    g.control_rotate()
+  }
+  // 下
+  if (event.keyCode === 40) {
+    g.control_down()
+  }
+  // 左
+  if (event.keyCode === 37) {
+    g.control_left()
+  }
+  // 右
+  if (event.keyCode === 39) {
+    g.control_right()
+  }
+})
 
 
 $('#btn_start').click( () => {
